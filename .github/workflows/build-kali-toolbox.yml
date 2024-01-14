@@ -32,7 +32,7 @@ jobs:
       - name: Verify Kali distrobox
         uses: EyeCantCU/cosign-action/verify@v0.2.2
         with:
-          containers: kali-distrobox:latest
+          containers: fedora-distrobox:latest
 
       # Build metadata
       - name: Image Metadata
