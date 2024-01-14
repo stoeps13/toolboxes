@@ -5,7 +5,7 @@ LABEL com.github.containers.toolbox="true" \
     usage="This image is meant to be used with the toolbox or distrobox command" \
     summary="A cloud-native terminal experience powered by Fedora"
 
-COPY ./toolboxes/packages.kali /toolbox-packages
+COPY ./toolboxes/kali-toolbox/packages.kali /toolbox-packages
 
 RUN apt-get update && \
     apt-get upgrade -y && \
