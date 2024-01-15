@@ -10,6 +10,7 @@ git
 hugo
 isync
 java-latest-openjdk
+khal
 khard
 make
 msmtp
@@ -30,6 +31,7 @@ rubygem-asciidoctor-pdf
 stow
 tmux
 urlscan
+vdirsyncer
 vim
 w3m
 wget
