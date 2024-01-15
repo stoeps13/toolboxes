@@ -2,6 +2,7 @@ automake
 bat
 curl
 fd-find
+feh
 fzf
 gcc
 gcc-c++
@@ -15,6 +16,7 @@ msmtp
 neomutt
 neovim
 nodejs-bash-language-server
+notmuch
 npm
 pandoc
 pass
@@ -27,6 +29,7 @@ rubygem-asciidoctor
 rubygem-asciidoctor-pdf
 stow
 tmux
+urlscan
 vim
 w3m
 wget
