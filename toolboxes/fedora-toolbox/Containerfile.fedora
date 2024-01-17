@@ -37,3 +37,14 @@ RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor rouge
 # Fix vdirsyncer
 RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
 
+COPY --from=cgr.dev/chainguard/helm:latest /usr/bin/helm /usr/bin/helm
+COPY --from=cgr.dev/chainguard/ko:latest /usr/bin/ko /usr/bin/ko
+COPY --from=cgr.dev/chainguard/minio-client:latest /usr/bin/mc /usr/bin/mc
+COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
+
+# Install kns/kctx and add completions for Bash
+RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr/bin/kubectx && \
+    wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -O /usr/bin/kubens && \
+    chmod +x /usr/bin/kubectx /usr/bin/kubens
+
+RUN cd /tmp && curl -s https://api.github.com/repos/derailed/k9s/releases/latest | grep "browser_download_url" | grep "k9s_linux_amd64.rpm" | cut -d : -f 2,3 | tr -d \" | wget -q -i - -O k9s_linux_amd64.rpm  && dnf install -y /tmp/k9s_linux_amd64.rpm && rm /tmp/k9s_linux_amd64.rpm
