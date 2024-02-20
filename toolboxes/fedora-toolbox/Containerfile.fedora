@@ -23,10 +23,10 @@ RUN wget -q https://nim-lang.org/download/nim-2.0.0-linux_x64.tar.xz -O /tmp/nim
 RUN npm install -g dockerfile-language-server-nodejs && npm install -g vscode-json-languageserver && npm i -g vscode-langservers-extracted && npm install -g yaml-language-server
 
 # Install ltex-ls
-RUN cd /tmp && curl -s https://api.github.com/repos/valentjn/ltex-ls/releases/latest | grep "browser_download_url" | grep "linux-x64.tar.gz" | cut -d : -f 2,3 | tr -d \" | wget -q -i - -O ltex-ls.tar.gz && tar xzf ltex-ls.tar.gz && mv $(find . -maxdepth 1 -name ltex-ls\* -type d | sort | tail -n1) /opt/ltex-ls && ln -s /opt/ltex-ls/bin/ltex-ls /usr/bin && rm -rf /tmp/ltex*
+# RUN cd /tmp && curl -s https://api.github.com/repos/valentjn/ltex-ls/releases/latest | grep "browser_download_url" | grep "linux-x64.tar.gz" | cut -d : -f 2,3 | tr -d \" | wget -q -i - -O ltex-ls.tar.gz && tar xzf ltex-ls.tar.gz && mv $(find . -maxdepth 1 -name ltex-ls\* -type d | sort | tail -n1) /opt/ltex-ls && ln -s /opt/ltex-ls/bin/ltex-ls /usr/bin && rm -rf /tmp/ltex*
 
 # Install mkdocs
-RUN pip install mkdocs mkdocs-material mkdocs-section-index
+RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core
 
 # Install GitHub cli
 RUN dnf install 'dnf-command(config-manager)' && dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo && dnf install -y gh
@@ -38,13 +38,10 @@ RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor rouge
 RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
 
 COPY --from=cgr.dev/chainguard/helm:latest /usr/bin/helm /usr/bin/helm
-COPY --from=cgr.dev/chainguard/ko:latest /usr/bin/ko /usr/bin/ko
-COPY --from=cgr.dev/chainguard/minio-client:latest /usr/bin/mc /usr/bin/mc
 COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
 
 # Install kns/kctx and add completions for Bash
 RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr/bin/kubectx && \
     wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -O /usr/bin/kubens && \
-    chmod +x /usr/bin/kubectx /usr/bin/kubens
-
-RUN cd /tmp && curl -s https://api.github.com/repos/derailed/k9s/releases/latest | grep "browser_download_url" | grep "k9s_linux_amd64.rpm" | cut -d : -f 2,3 | tr -d \" | wget -q -i - -O k9s_linux_amd64.rpm  && dnf install -y /tmp/k9s_linux_amd64.rpm && rm /tmp/k9s_linux_amd64.rpm
+    chmod +x /usr/bin/kubectx /usr/bin/kubens && \
+    cd /tmp && curl -s https://api.github.com/repos/derailed/k9s/releases/latest | grep "browser_download_url" | grep "k9s_linux_amd64.rpm" | cut -d : -f 2,3 | tr -d \" | wget -q -i - -O k9s_linux_amd64.rpm  && dnf install -y /tmp/k9s_linux_amd64.rpm && rm /tmp/k9s_linux_amd64.rpm && dnf clean all
