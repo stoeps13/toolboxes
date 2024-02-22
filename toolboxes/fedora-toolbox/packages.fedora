@@ -1,7 +1,7 @@
 automake
 bat
 curl
-exiftool
+perl-Image-ExifTool
 fd-find
 feh
 fzf
