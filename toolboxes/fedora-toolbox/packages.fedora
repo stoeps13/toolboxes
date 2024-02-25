@@ -1,5 +1,6 @@
 automake
 bat
+chromium
 curl
 fd-find
 feh
@@ -8,6 +9,7 @@ gcc
 gcc-c++
 git
 hugo
+inotifywait
 isync
 java-latest-openjdk
 khal
