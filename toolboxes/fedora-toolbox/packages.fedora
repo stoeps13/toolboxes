@@ -10,7 +10,7 @@ gcc
 gcc-c++
 git
 hugo
-inotifywait
+inotify-tools
 isync
 java-latest-openjdk
 khal
