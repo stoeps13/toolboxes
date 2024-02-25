@@ -2,8 +2,11 @@ bat
 burpsuite
 curl
 eyewitness
+fd-find
 fzf
 git
+musl
+musl-dev
 neovim
 python3-altair
 ripgrep

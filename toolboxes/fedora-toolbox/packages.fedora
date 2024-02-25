@@ -2,6 +2,7 @@ automake
 bat
 chromium
 curl
+perl-Image-ExifTool
 fd-find
 feh
 fzf
