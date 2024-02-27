@@ -29,8 +29,6 @@ python3
 python3-ipywidgets
 python3-widgetsnbextension
 ripgrep
-rubygem-asciidoctor
-rubygem-asciidoctor-pdf
 rubygem-sass
 stow
 testssl
