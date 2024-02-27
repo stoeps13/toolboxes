@@ -1,7 +1,6 @@
 on:
   push:
     branches:
-      - main
 
 permissions:
   contents: write
@@ -9,7 +8,7 @@ permissions:
   actions: read
   packages: write
   pull-requests: write
-      
+
 name: Release Please
 jobs:
   release-please:
