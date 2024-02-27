@@ -32,7 +32,6 @@ ripgrep
 rubygem-asciidoctor
 rubygem-asciidoctor-pdf
 rubygem-sass
-sass
 stow
 testssl
 tmux
