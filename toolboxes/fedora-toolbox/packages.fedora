@@ -12,6 +12,7 @@ git
 hugo
 inotify-tools
 isync
+ImageMagick
 java-latest-openjdk
 khal
 khard
@@ -29,6 +30,7 @@ python3
 python3-ipywidgets
 python3-widgetsnbextension
 ripgrep
+ruby-devel
 rubygem-asciidoctor
 rubygem-asciidoctor-pdf
 rubygem-sass
