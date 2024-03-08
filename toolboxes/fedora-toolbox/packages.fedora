@@ -31,10 +31,7 @@ python3-ipywidgets
 python3-widgetsnbextension
 ripgrep
 ruby-devel
-rubygem-asciidoctor
-rubygem-asciidoctor-pdf
 rubygem-sass
-sass
 stow
 testssl
 tmux

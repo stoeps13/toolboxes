@@ -1,4 +1,5 @@
-FROM ghcr.io/ublue-os/fedora-distrobox:latest
+# FROM ghcr.io/ublue-os/fedora-distrobox:latest
+FROM quay.io/fedora/fedora-toolbox:39
 # From https://github.com/ublue-os/fedora-distrobox
 
 LABEL com.github.containers.toolbox="true" \
@@ -32,16 +33,20 @@ RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core
 RUN dnf install 'dnf-command(config-manager)' && dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo && dnf install -y gh
 
 # Install Asciidoctor
-RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor rouge
+RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciidoctor rouge
 
 # Fix vdirsyncer
 RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
 
 COPY --from=cgr.dev/chainguard/helm:latest /usr/bin/helm /usr/bin/helm
 COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
+# Add some container binaries
+COPY --from=cgr.dev/chainguard/dive:latest /usr/bin/dive /usr/bin/dive
+COPY --from=quay.io/derailed/k9s:latest /bin/k9s /usr/bin/k9s
+COPY --from=docker.io/aquasec/trivy:latest /usr/local/bin/trivy /usr/bin/trivy
+
 
 # Install kns/kctx and add completions for Bash
 RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr/bin/kubectx && \
     wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -O /usr/bin/kubens && \
-    chmod +x /usr/bin/kubectx /usr/bin/kubens && \
-    cd /tmp && curl -s https://api.github.com/repos/derailed/k9s/releases/latest | grep "browser_download_url" | grep "k9s_linux_amd64.rpm" | cut -d : -f 2,3 | tr -d \" | wget -q -i - -O k9s_linux_amd64.rpm  && dnf install -y /tmp/k9s_linux_amd64.rpm && rm /tmp/k9s_linux_amd64.rpm && dnf clean all
+    chmod +x /usr/bin/kubectx /usr/bin/kubens
