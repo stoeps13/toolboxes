@@ -9,7 +9,7 @@ git
 kali-linux-headless 
 musl
 musl-dev
-neo4
+neo4j
 neovim
 ripgrep
 rlwrap
