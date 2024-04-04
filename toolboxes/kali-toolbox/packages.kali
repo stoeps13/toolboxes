@@ -16,7 +16,7 @@ musl
 musl-dev
 neo4j
 neovim
-netcat
+netcat-openbsd
 nmap
 ripgrep
 rlwrap
