@@ -1,5 +1,4 @@
 bat
-burpsuite
 curl
 dirbuster
 eyewitness
@@ -24,4 +23,3 @@ sudo
 tmux
 vim
 wget
-zaproxy
