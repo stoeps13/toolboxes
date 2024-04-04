@@ -1,12 +1,15 @@
 bat
+bloodhound 
 burpsuite
 curl
 eyewitness
 fd-find
 fzf
 git
+kali-linux-headless 
 musl
 musl-dev
+neo4
 neovim
 ripgrep
 rlwrap
