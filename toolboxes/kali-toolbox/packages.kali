@@ -10,6 +10,7 @@ musl-dev
 neovim
 python3-altair
 ripgrep
+rlwrap
 stow
 sudo
 tmux
