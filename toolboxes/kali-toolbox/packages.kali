@@ -1,5 +1,4 @@
 bat
-bloodhound 
 burpsuite
 curl
 dirbuster
@@ -14,7 +13,6 @@ john
 metasploit-framework
 musl
 musl-dev
-neo4j
 neovim
 netcat-openbsd
 nmap
