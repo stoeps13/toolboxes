@@ -18,7 +18,7 @@ RUN rm /toolbox-packages
 RUN dnf copr enable atim/lazygit -y && dnf install -y lazygit
 
 # Install nim
-RUN wget -q https://nim-lang.org/download/nim-2.0.0-linux_x64.tar.xz -O /tmp/nim-2.0.0-linux_x64.tar.xz && cd /opt && tar xJf /tmp/nim-2.0.0-linux_x64.tar.xz && cd nim-2.0.0 && ./install.sh /usr/local/bin && rm -rf /tmp/nim*
+# RUN wget -q https://nim-lang.org/download/nim-2.0.0-linux_x64.tar.xz -O /tmp/nim-2.0.0-linux_x64.tar.xz && cd /opt && tar xJf /tmp/nim-2.0.0-linux_x64.tar.xz && cd nim-2.0.0 && ./install.sh /usr/local/bin && rm -rf /tmp/nim*
 
 # Install language server for neovim
 RUN npm install -g dockerfile-language-server-nodejs && npm install -g vscode-json-languageserver && npm i -g vscode-langservers-extracted && npm install -g yaml-language-server
