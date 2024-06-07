@@ -4,6 +4,7 @@ automake
 bat
 chromium
 curl
+fastfetch
 fd-find
 feh
 fzf
