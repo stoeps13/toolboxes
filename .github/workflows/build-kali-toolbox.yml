@@ -86,11 +86,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
-<<<<<<< HEAD:.github/workflows/build-kali-toolbox.yml
-      - uses: sigstore/cosign-installer@v3.3.0
-=======
       - uses: sigstore/cosign-installer@v3.5.0
->>>>>>> upstream/main:.github/workflows/build-blincusui-app.yml
         if: github.event_name != 'pull_request'
 
       - name: Sign container image
