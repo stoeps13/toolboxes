@@ -15,6 +15,7 @@ hugo
 inotify-tools
 isync
 java-latest-openjdk
+jq
 khal
 khard
 make
