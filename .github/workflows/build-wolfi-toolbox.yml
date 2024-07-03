@@ -1,11 +1,11 @@
-name: Build and Push Kali Toolbox Image
+name: Build and Push Wolfi Toolbox Image
 on:
   schedule:
-    - cron: '20 22 * * *'  # 10:20pm everyday
+    - cron: '0 6,18 * * *'  # 6am and 6pm every day
+  pull_request:
   merge_group:
   workflow_dispatch:
 env:
-    IMAGE_NAME: kali-toolbox
     IMAGE_TAGS: latest
     IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
@@ -16,22 +16,27 @@ concurrency:
 jobs:
   push-ghcr:
     name: Build and push image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       contents: read
       packages: write
       id-token: write
     strategy:
       fail-fast: false
+      matrix:
+        image_name: ["wolfi-toolbox", "wolfi-dx-toolbox"]
     steps:
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
 
-      - name: Verify Kali distrobox
+      - name: Verify base image
         uses: EyeCantCU/cosign-action/verify@v0.2.2
         with:
-          containers: fedora-distrobox:latest
+          containers: wolfi-base
+          cert-identity: https://github.com/chainguard-images/images/.github/workflows/release.yaml@refs/heads/main
+          oidc-issuer: https://token.actions.githubusercontent.com
+          registry: cgr.dev/chainguard
 
       # Build metadata
       - name: Image Metadata
@@ -39,9 +44,14 @@ jobs:
         id: meta
         with:
           images: |
-            ${{ env.IMAGE_NAME }}
+            ${{ matrix.image_name }}
           labels: |
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/ublue-os/boxkit/main/README.md
+
+      # Maximize build space for DX
+      - name: Maximize build space
+        uses: ublue-os/remove-unwanted-software@v7
+        if: matrix.image_name == 'wolfi-dx-toolbox'
 
       # Build image using Buildah action
       - name: Build Image
@@ -49,9 +59,11 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           containerfiles: |
-            ./toolboxes/kali-toolbox/Containerfile.kali
-          image: ${{ env.IMAGE_NAME }}
+            ./toolboxes/wolfi-toolbox/Containerfile.wolfi
+          image: ${{ matrix.image_name }}
           tags: ${{ env.IMAGE_TAGS }}
+          build-args: |
+            IMAGE_NAME=${{ matrix.image_name }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
 
@@ -77,6 +89,7 @@ jobs:
           registry: ${{ steps.registry_case.outputs.lowercase }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         if: github.event_name != 'pull_request'
@@ -86,11 +99,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
-<<<<<<< HEAD:.github/workflows/build-kali-toolbox.yml
-      - uses: sigstore/cosign-installer@v3.3.0
-=======
       - uses: sigstore/cosign-installer@v3.5.0
->>>>>>> upstream/main:.github/workflows/build-blincusui-app.yml
         if: github.event_name != 'pull_request'
 
       - name: Sign container image
@@ -98,7 +107,7 @@ jobs:
         run: |
           echo "${{ env.COSIGN_PRIVATE_KEY }}" > cosign.key
           wc -c cosign.key
-          cosign sign -y --key cosign.key ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}@${TAGS}
+          cosign sign -y --key cosign.key ${{ steps.registry_case.outputs.lowercase }}/${{ matrix.image_name }}@${TAGS}
         env:
           TAGS: ${{ steps.push.outputs.digest }}
           COSIGN_EXPERIMENTAL: false

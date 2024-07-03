@@ -1,11 +1,12 @@
-name: Build and Push Kali Toolbox Image
+name: Build and Push Ubuntu Toolbox Image
 on:
   schedule:
     - cron: '20 22 * * *'  # 10:20pm everyday
+  pull_request:
   merge_group:
   workflow_dispatch:
 env:
-    IMAGE_NAME: kali-toolbox
+    IMAGE_NAME: ubuntu-toolbox
     IMAGE_TAGS: latest
     IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
@@ -16,7 +17,7 @@ concurrency:
 jobs:
   push-ghcr:
     name: Build and push image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       contents: read
       packages: write
@@ -28,10 +29,12 @@ jobs:
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
 
-      - name: Verify Kali distrobox
-        uses: EyeCantCU/cosign-action/verify@v0.2.2
-        with:
-          containers: fedora-distrobox:latest
+      # - name: Verify Ubuntu toolbox
+      #   uses: EyeCantCU/cosign-action/verify@v0.2.2
+      #   with:
+      #     containers: ubuntu-toolbox:22.04
+      #     pubkey: https://raw.githubusercontent.com/toolbx-images/images/main/quay.io-toolbx-images.pub
+      #     registry: quay.io/toolbx-images
 
       # Build metadata
       - name: Image Metadata
@@ -49,7 +52,7 @@ jobs:
         uses: redhat-actions/buildah-build@v2
         with:
           containerfiles: |
-            ./toolboxes/kali-toolbox/Containerfile.kali
+            ./toolboxes/ubuntu-toolbox/Containerfile.ubuntu
           image: ${{ env.IMAGE_NAME }}
           tags: ${{ env.IMAGE_TAGS }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -86,11 +89,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
-<<<<<<< HEAD:.github/workflows/build-kali-toolbox.yml
-      - uses: sigstore/cosign-installer@v3.3.0
-=======
       - uses: sigstore/cosign-installer@v3.5.0
->>>>>>> upstream/main:.github/workflows/build-blincusui-app.yml
         if: github.event_name != 'pull_request'
 
       - name: Sign container image

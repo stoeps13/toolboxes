@@ -1,11 +1,12 @@
-name: Build and Push Kali Toolbox Image
+name: Build and Push Docker App Toolbox
 on:
   schedule:
     - cron: '20 22 * * *'  # 10:20pm everyday
+  pull_request:
   merge_group:
   workflow_dispatch:
 env:
-    IMAGE_NAME: kali-toolbox
+    IMAGE_NAME: docker-distrobox
     IMAGE_TAGS: latest
     IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
@@ -16,7 +17,7 @@ concurrency:
 jobs:
   push-ghcr:
     name: Build and push image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       contents: read
       packages: write
@@ -28,32 +29,12 @@ jobs:
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
 
-      - name: Verify Kali distrobox
+      - name: Verify Ublue-OS Ubuntu toolbox
         uses: EyeCantCU/cosign-action/verify@v0.2.2
         with:
-          containers: fedora-distrobox:latest
-
-      # Build metadata
-      - name: Image Metadata
-        uses: docker/metadata-action@v5
-        id: meta
-        with:
-          images: |
-            ${{ env.IMAGE_NAME }}
-          labels: |
-            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/ublue-os/boxkit/main/README.md
-
-      # Build image using Buildah action
-      - name: Build Image
-        id: build_image
-        uses: redhat-actions/buildah-build@v2
-        with:
-          containerfiles: |
-            ./toolboxes/kali-toolbox/Containerfile.kali
-          image: ${{ env.IMAGE_NAME }}
-          tags: ${{ env.IMAGE_TAGS }}
-          labels: ${{ steps.meta.outputs.labels }}
-          oci: false
+          containers: ubuntu-toolbox:latest
+          pubkey: https://raw.githubusercontent.com/ublue-os/toolboxes/main/cosign.pub
+          registry: ghcr.io/ublue-os
 
       # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
@@ -63,20 +44,19 @@ jobs:
         with:
           string: ${{ env.IMAGE_REGISTRY }}
 
-      # Push the image to GHCR (Image Registry)
-      - name: Push To GHCR
-        uses: redhat-actions/push-to-registry@v2
-        if: github.event_name != 'pull_request'
-        id: push
-        env:
-          REGISTRY_USER: ${{ github.actor }}
-          REGISTRY_PASSWORD: ${{ github.token }}
+      # Build metadata
+      - name: Image Metadata
+        uses: docker/metadata-action@v5
+        id: meta
         with:
-          image: ${{ steps.build_image.outputs.image }}
-          tags: ${{ steps.build_image.outputs.tags }}
-          registry: ${{ steps.registry_case.outputs.lowercase }}
-          username: ${{ env.REGISTRY_USER }}
-          password: ${{ env.REGISTRY_PASSWORD }}
+          images: |
+            ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}
+          labels: |
+            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/ublue-os/boxkit/main/README.md
+          tags: |
+            ${{ env.IMAGE_TAGS }}
+
+      # Login to Contaier Registry if not a PR
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         if: github.event_name != 'pull_request'
@@ -85,12 +65,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # Build and Push Image
+      - name: Build and Push Image
+        id: build_image
+        uses: docker/build-push-action@v6
+        with:
+          push: ${{ github.event_name != 'pull_request' }}
+          file: ./apps/docker/Containerfile.docker
+          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{  steps.meta.outputs.tags  }}
+
       # Sign container
-<<<<<<< HEAD:.github/workflows/build-kali-toolbox.yml
-      - uses: sigstore/cosign-installer@v3.3.0
-=======
       - uses: sigstore/cosign-installer@v3.5.0
->>>>>>> upstream/main:.github/workflows/build-blincusui-app.yml
         if: github.event_name != 'pull_request'
 
       - name: Sign container image
@@ -100,10 +86,10 @@ jobs:
           wc -c cosign.key
           cosign sign -y --key cosign.key ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}@${TAGS}
         env:
-          TAGS: ${{ steps.push.outputs.digest }}
+          TAGS: ${{ steps.build_image.outputs.digest }}
           COSIGN_EXPERIMENTAL: false
           COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
 
       - name: Echo outputs
         run: |
-          echo "${{ toJSON(steps.push.outputs) }}"
+          echo "${{ toJSON(steps.build_image.outputs) }}"
