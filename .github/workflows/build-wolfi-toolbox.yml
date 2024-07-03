@@ -1,6 +1,5 @@
 name: Build and Push Wolfi Toolbox Image
 on:
-  schedule:
   pull_request:
   merge_group:
   workflow_dispatch:
