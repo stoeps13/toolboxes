@@ -25,13 +25,20 @@ RUN curl -L https://dl.pstmn.io/download/latest/linux_64 \
 RUN curl -s https://api.github.com/repos/assetnote/kiterunner/releases/latest \
    | grep -e "kiterunner_.*_linux_amd64.tar.gz" | grep "browser_download_url" \
    | cut -d : -f 2,3 \
-   | tr -d \" | xargs -n 1 curl -s -L | sudo tar -C /usr/local/bin -xvzf -
+   | tr -d \" | xargs -n 1 curl -s -L | tar -C /usr/local/bin -xvzf -
+
+# Install nuclei
+RUN curl -s https://api.github.com/repos/projectdiscovery/nuclei/releases/latest \
+   | grep -e "nuclei_.*_linux_amd64.zip" | grep "browser_download_url" \
+   | cut -d : -f 2,3 \
+   | tr -d \" | xargs -n 1 curl -s -L -o /tmp/nuclei_linux_amd64.zip  && \
+   unzip -d /tmp /tmp/nuclei_linux_amd64.zip nuclei && \
+   mv /tmp/nuclei /usr/local/bin/ && \
+   rm /tmp/nuclei*.zip
 
 RUN ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree
-
-COPY --from=projectdiscovery/nuclei:latest /usr/local/bin/nuclei /usr/local/bin/nuclei
 
 RUN echo "ALL            ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers
