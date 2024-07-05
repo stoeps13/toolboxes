@@ -10,7 +10,6 @@ git
 hashcat
 hydra
 john
-metasploit-framework
 musl
 musl-dev
 netcat-openbsd
