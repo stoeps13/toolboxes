@@ -20,5 +20,6 @@ sqlmap
 stow
 sudo
 tmux
+unzip
 vim
 wget
