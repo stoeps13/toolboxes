@@ -22,7 +22,7 @@ RUN curl -L https://dl.pstmn.io/download/latest/linux_64 \
    ln -s /opt/Postman/app/Postman /usr/local/bin/Postman 
 
 # Install kiterunner
-curl -s https://api.github.com/repos/assetnote/kiterunner/releases/latest \
+RUN curl -s https://api.github.com/repos/assetnote/kiterunner/releases/latest \
    | grep -e "kiterunner_.*_linux_amd64.tar.gz" | grep "browser_download_url" \
    | cut -d : -f 2,3 \
    | tr -d \" | xargs -n 1 curl -s -L | sudo tar -C /usr/local/bin -xvzf -
