@@ -25,7 +25,9 @@ RUN curl -L https://dl.pstmn.io/download/latest/linux_64 \
 RUN curl -s https://api.github.com/repos/assetnote/kiterunner/releases/latest \
    | grep -e "kiterunner_.*_linux_amd64.tar.gz" | grep "browser_download_url" \
    | cut -d : -f 2,3 \
-   | tr -d \" | xargs -n 1 curl -s -L | tar -C /usr/local/bin -xvzf -
+   | tr -d \" | xargs -n 1 curl -s -L -o /tmp/kiterunner_linux_amd64.tar.gz && \
+   tar -C /usr/local/bin -xvzf /tmp/kiterunner_linux_amd64.tar.gz kr && \
+   rm /tmp/kiterunner_linux_amd64.tar.gz
 
 # Install nuclei
 RUN curl -s https://api.github.com/repos/projectdiscovery/nuclei/releases/latest \
