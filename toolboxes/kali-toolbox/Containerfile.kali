@@ -16,8 +16,18 @@ RUN rm /toolbox-packages
 
 # Clone repositories if not present
 # RUN if cd repo; then git pull; else git clone url; fi
+# Install Postman
+RUN curl -L --output /tmp/postman.tar.gz https://dl.pstmn.io/download/latest/linux_64 \
+   | tar -C /opt/ -xvzf - && \
+   ln -s /opt/Postman/app/Postman /usr/local/bin/Postman 
 
-RUN   ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
+# Install kiterunner
+curl -s https://api.github.com/repos/assetnote/kiterunner/releases/latest \
+   | grep -e "kiterunner_.*_linux_amd64.tar.gz" | grep "browser_download_url" \
+   | cut -d : -f 2,3 \
+   | tr -d \" | xargs -n 1 curl -s -L | sudo tar -C /usr/local/bin -xvzf -
+
+RUN ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree
