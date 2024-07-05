@@ -17,7 +17,7 @@ RUN rm /toolbox-packages
 # Clone repositories if not present
 # RUN if cd repo; then git pull; else git clone url; fi
 # Install Postman
-RUN curl -L --output /tmp/postman.tar.gz https://dl.pstmn.io/download/latest/linux_64 \
+RUN curl -L https://dl.pstmn.io/download/latest/linux_64 \
    | tar -C /opt/ -xvzf - && \
    ln -s /opt/Postman/app/Postman /usr/local/bin/Postman 
 
