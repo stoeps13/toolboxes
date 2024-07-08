@@ -38,6 +38,9 @@ RUN curl -s https://api.github.com/repos/projectdiscovery/nuclei/releases/latest
    mv /tmp/nuclei /usr/local/bin/ && \
    rm /tmp/nuclei*.zip
 
+# Get burpsuite.desktop
+RUN curl -s -L -o /usr/share/applications/burpsuite.desktop https://raw.githubusercontent.com/Archstacker/KaliTools/master/Kali/applications/kali-burpsuite.desktop
+
 RUN ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
