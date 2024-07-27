@@ -47,6 +47,6 @@ RUN curl -s https://api.github.com/repos/hoppscotch/releases/releases/latest \
   rm /tmp/Hoppscotch_linux_x64.deb
 
 # Get burpsuite.desktop
-RUN curl -s -L -o /usr/share/applications/burpsuite.desktop https://raw.githubusercontent.com/Archstacker/KaliTools/master/Kali/applications/kali-burpsuite.desktop
+RUN curl -s -L -o /usr/share/applications/burpsuite.desktop https://raw.githubusercontent.com/Archstacker/KaliTools/master/Kali/applications/kali-burpsuite.desktop && sed -i '!/Exec=sh -c "java -jar /usr/bin/burpsuite"!Exec=/usr/bin/burpsuite!' /usr/share/applications/burpsuite.desktop
 
 RUN echo "ALL            ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers
