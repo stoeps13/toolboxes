@@ -1,3 +1,4 @@
+arjun
 bat
 curl
 dirbuster
@@ -9,10 +10,8 @@ git
 hashcat
 hydra
 john
-metasploit-framework
 musl
 musl-dev
-neovim
 netcat-openbsd
 nmap
 ripgrep
@@ -21,5 +20,6 @@ sqlmap
 stow
 sudo
 tmux
+unzip
 vim
 wget

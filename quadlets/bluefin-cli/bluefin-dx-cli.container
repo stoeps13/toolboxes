@@ -1,16 +1,16 @@
 [Unit]
-Description=Wolfi Toolbox for your distrobox fun
+Description=Bluefin DX CLI for Wolfi development with brew
 
 [Container]
 Annotation=run.oci.keep_original_groups=1
 AutoUpdate=registry
-ContainerName=wolfi-quadlet
+ContainerName=bluefin
 Environment=SHELL=%s
 Environment=HOME=%h
 Environment=container=podman
 Exec=--verbose --name %u --user %U --group %G --home %h --init "0" --nvidia "1" -- " "
-Image=ghcr.io/ublue-os/wolfi-toolbox:latest
-HostName=wolfi-quadlet.%l
+Image=ghcr.io/ublue-os/bluefin-dx-cli:latest
+HostName=bluefin-dx.%l
 Label=manager=distrobox
 Network=host
 PodmanArgs=--entrypoint /usr/bin/entrypoint

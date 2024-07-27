@@ -1,12 +1,9 @@
 name: Build and Push Wolfi Toolbox Image
 on:
-  schedule:
-    - cron: '20 22 * * *'  # 10:20pm everyday
   pull_request:
   merge_group:
   workflow_dispatch:
 env:
-    IMAGE_NAME: wolfi-toolbox
     IMAGE_TAGS: latest
     IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
@@ -24,12 +21,14 @@ jobs:
       id-token: write
     strategy:
       fail-fast: false
+      matrix:
+        image_name: ["wolfi-toolbox", "wolfi-dx-toolbox"]
     steps:
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
         uses: actions/checkout@v4
 
-      - name: Verify base container
+      - name: Verify base image
         uses: EyeCantCU/cosign-action/verify@v0.2.2
         with:
           containers: wolfi-base
@@ -43,9 +42,14 @@ jobs:
         id: meta
         with:
           images: |
-            ${{ env.IMAGE_NAME }}
+            ${{ matrix.image_name }}
           labels: |
             io.artifacthub.package.readme-url=https://raw.githubusercontent.com/ublue-os/boxkit/main/README.md
+
+      # Maximize build space for DX
+      - name: Maximize build space
+        uses: ublue-os/remove-unwanted-software@v7
+        if: matrix.image_name == 'wolfi-dx-toolbox'
 
       # Build image using Buildah action
       - name: Build Image
@@ -54,11 +58,13 @@ jobs:
         with:
           containerfiles: |
             ./toolboxes/wolfi-toolbox/Containerfile.wolfi
-          image: ${{ env.IMAGE_NAME }}
+          image: ${{ matrix.image_name }}
           tags: ${{ env.IMAGE_TAGS }}
+          build-args: |
+            IMAGE_NAME=${{ matrix.image_name }}
           labels: ${{ steps.meta.outputs.labels }}
           oci: false
-          
+
       # Workaround bug where capital letters in your GitHub username make it impossible to push to GHCR.
       # https://github.com/macbre/push-to-ghcr/issues/12
       - name: Lowercase Registry
@@ -81,7 +87,7 @@ jobs:
           registry: ${{ steps.registry_case.outputs.lowercase }}
           username: ${{ env.REGISTRY_USER }}
           password: ${{ env.REGISTRY_PASSWORD }}
-            
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         if: github.event_name != 'pull_request'
@@ -89,9 +95,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-            
+
       # Sign container
-      - uses: sigstore/cosign-installer@v3.3.0
+      - uses: sigstore/cosign-installer@v3.5.0
         if: github.event_name != 'pull_request'
 
       - name: Sign container image
@@ -99,7 +105,7 @@ jobs:
         run: |
           echo "${{ env.COSIGN_PRIVATE_KEY }}" > cosign.key
           wc -c cosign.key
-          cosign sign -y --key cosign.key ${{ steps.registry_case.outputs.lowercase }}/${{ env.IMAGE_NAME }}@${TAGS}
+          cosign sign -y --key cosign.key ${{ steps.registry_case.outputs.lowercase }}/${{ matrix.image_name }}@${TAGS}
         env:
           TAGS: ${{ steps.push.outputs.digest }}
           COSIGN_EXPERIMENTAL: false
