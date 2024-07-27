@@ -43,7 +43,7 @@ RUN curl -s https://api.github.com/repos/hoppscotch/releases/releases/latest \
   | grep -e "Hoppscotch_linux_x64.deb" | grep "browser_download_url" \
   | cut -d : -f 2,3 \
   | tr -d \" | xargs -n 1 curl -s -L -o /tmp/Hoppscotch_linux_x64.deb && \
-  apt install -y /tmp/Hoppscotch_linux_x64.deb && \
+  apt --fix-broken install && apt install -y /tmp/Hoppscotch_linux_x64.deb && \
   rm /tmp/Hoppscotch_linux_x64.deb
 
 # Get burpsuite.desktop
