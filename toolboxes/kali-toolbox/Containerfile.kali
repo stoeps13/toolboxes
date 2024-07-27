@@ -47,8 +47,8 @@ RUN curl -s https://api.github.com/repos/hoppscotch/releases/releases/latest \
   rm /tmp/Hoppscotch_linux_x64.deb
 
 # Get burpsuite.desktop
-COPY burpsuite.desktop /usr/share/applications/
-COPY zaproxy.desktop /usr/share/applications/
+COPY kali-toolbox/burpsuite.desktop /usr/share/applications/
+COPY kali-toolbox/zaproxy.desktop /usr/share/applications/
 
 RUN apt --fix-broken install -y
 
