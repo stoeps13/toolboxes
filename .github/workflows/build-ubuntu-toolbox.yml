@@ -1,7 +1,7 @@
 name: Build and Push Ubuntu Toolbox Image
 on:
-  pull_request:
-  merge_group:
+  schedule:
+    - cron: '20 22 * * 7'  # 10:20pm everyday
   workflow_dispatch:
 env:
     IMAGE_NAME: ubuntu-toolbox

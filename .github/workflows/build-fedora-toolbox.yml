@@ -1,9 +1,7 @@
 name: Build and Push Fedora Toolbox
 on:
   schedule:
-    - cron: '20 22 * * *'  # 10:20pm everyday
-  pull_request:
-  merge_group:
+    - cron: '20 22 * * 2,5'  # 10:20pm everyday
   workflow_dispatch:
 env:
     IMAGE_NAME: fedora-toolbox

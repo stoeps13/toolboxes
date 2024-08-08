@@ -1,7 +1,7 @@
 name: Build and Push Kali Toolbox Image
 on:
   schedule:
-    - cron: '20 22 * * *'  # 10:20pm everyday
+    - cron: '20 22 * * 2,5'  # 10:20pm everyday
   merge_group:
   workflow_dispatch:
 env:
