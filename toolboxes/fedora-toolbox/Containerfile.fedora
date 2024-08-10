@@ -30,7 +30,8 @@ RUN npm install -g dockerfile-language-server-nodejs && npm install -g vscode-js
 RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17
 
 # Install GitHub cli
-RUN dnf install 'dnf-command(config-manager)' && dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo && dnf install -y gh
+# comment out, as gh is in the fedora repo
+# RUN dnf install 'dnf-command(config-manager)' && dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo && dnf install -y gh
 
 # Install Asciidoctor
 RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciidoctor rouge
