@@ -46,6 +46,8 @@ COPY --from=cgr.dev/chainguard/dive:latest /usr/bin/dive /usr/bin/dive
 COPY --from=quay.io/derailed/k9s:latest /bin/k9s /usr/bin/k9s
 COPY --from=docker.io/aquasec/trivy:latest /usr/local/bin/trivy /usr/bin/trivy
 
+# Install tailspin
+cargo install tailspin
 
 # Install kns/kctx and add completions for Bash
 RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr/bin/kubectx && \
