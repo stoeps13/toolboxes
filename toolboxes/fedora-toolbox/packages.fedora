@@ -4,6 +4,7 @@ automake
 bat
 chromium
 curl
+difftastic
 eza
 fastfetch
 fd-find
