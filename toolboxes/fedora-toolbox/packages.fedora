@@ -4,6 +4,7 @@ automake
 bat
 chromium
 curl
+eza
 fastfetch
 fd-find
 feh
@@ -45,4 +46,5 @@ vim
 w3m
 wget
 xclip
+zoxide
 zsh
