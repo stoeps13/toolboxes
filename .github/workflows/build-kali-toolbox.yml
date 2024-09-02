@@ -1,7 +1,7 @@
 name: Build and Push Kali Toolbox Image
 on:
   schedule:
-    - cron: '20 22 * * *'  # 10:20pm everyday
+    - cron: '20 22 * * 2,5'  # 10:20pm everyday
   merge_group:
   workflow_dispatch:
 env:
@@ -87,7 +87,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
-      - uses: sigstore/cosign-installer@v3.5.0
+      - uses: sigstore/cosign-installer@v3.6.0
         if: github.event_name != 'pull_request'
 
       - name: Sign container image

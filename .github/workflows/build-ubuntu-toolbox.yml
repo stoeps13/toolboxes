@@ -1,7 +1,7 @@
 name: Build and Push Ubuntu Toolbox Image
 on:
-  pull_request:
-  merge_group:
+  schedule:
+    - cron: '20 22 * * 0'  # 10:20pm everyday
   workflow_dispatch:
 env:
     IMAGE_NAME: ubuntu-toolbox
@@ -87,7 +87,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
-      - uses: sigstore/cosign-installer@v3.5.0
+      - uses: sigstore/cosign-installer@v3.6.0
         if: github.event_name != 'pull_request'
 
       - name: Sign container image

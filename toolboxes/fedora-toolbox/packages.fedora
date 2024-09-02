@@ -2,14 +2,18 @@ ImageMagick
 ansifilter
 automake
 bat
+cargo
 chromium
 curl
+difftastic
+eza
 fastfetch
 fd-find
 feh
 fzf
 gcc
 gcc-c++
+gh
 git
 hugo
 inotify-tools
@@ -44,4 +48,5 @@ vim
 w3m
 wget
 xclip
+zoxide
 zsh

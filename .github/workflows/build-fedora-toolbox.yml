@@ -1,9 +1,7 @@
-name: Build and Push Fedora Toolbox Image
+name: Build and Push Fedora Toolbox
 on:
   schedule:
-    - cron: '20 22 * * *'  # 10:20pm everyday
-  pull_request:
-  merge_group:
+    - cron: '20 22 * * 2,5'  # 10:20pm everyday
   workflow_dispatch:
 env:
     IMAGE_NAME: fedora-toolbox
@@ -90,7 +88,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # Sign container
-      - uses: sigstore/cosign-installer@v3.5.0
+      - uses: sigstore/cosign-installer@v3.6.0
         if: github.event_name != 'pull_request'
 
       - name: Sign container image
