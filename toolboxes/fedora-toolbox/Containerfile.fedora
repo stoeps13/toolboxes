@@ -29,6 +29,9 @@ RUN npm install -g dockerfile-language-server-nodejs && npm install -g vscode-js
 # Install Talosctl
 RUN cd /tmp && curl -s https://api.github.com/repos/siderolabs/talos/releases/latest | grep "browser_download_url" | grep "talosctl-linux-amd64" | cut -d : -f 2,3 | tr -d \" | wget -q -i - -O talosctl && chmod +x talosctl && mv talosctl /usr/local/bin/
 
+# Install k9s
+RUN cd /tmp && curl -s https://api.github.com/repos/derailed/k9s/releases/latest | grep "browser_download_url" | grep "k9s_Linux_amd64.tar.gz" | cut -d : -f 2,3 | tr -d \" | wget -q -i - -O k9s_linux_amd64.tar.gz && mkdir k9s-extracted && tar xzf k9s_Linux_amd64.tar.gz -C k9s-extracted && mv k9s-extracted/k9s /usr/local/bin/ && rm -rf /tmp/k9s-extracted
+
 # Install mkdocs
 RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17
 
@@ -46,7 +49,7 @@ COPY --from=cgr.dev/chainguard/helm:latest /usr/bin/helm /usr/bin/helm
 COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
 # Add some container binaries
 COPY --from=cgr.dev/chainguard/dive:latest /usr/bin/dive /usr/bin/dive
-COPY --from=quay.io/derailed/k9s:latest /bin/k9s /usr/bin/k9s
+# seems old, no updates COPY --from=quay.io/derailed/k9s:latest /bin/k9s /usr/bin/k9s
 COPY --from=docker.io/aquasec/trivy:latest /usr/local/bin/trivy /usr/bin/trivy
 
 # Install tailspin
