@@ -22,6 +22,7 @@ java-latest-openjdk
 jq
 khal
 khard
+libwayland-client
 make
 msmtp
 neomutt
@@ -39,6 +40,8 @@ python3-widgetsnbextension
 ripgrep
 ruby-devel
 rubygem-sass
+rust-smithay-client-toolkit-devel
+rust-wayland-client+default-devel
 stow
 testssl
 tmux
