@@ -43,3 +43,5 @@ COPY --from=docker.io/aquasec/trivy:latest /usr/local/bin/trivy /usr/bin/trivy
 RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr/bin/kubectx && \
     wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -O /usr/bin/kubens && \
     chmod +x /usr/bin/kubectx /usr/bin/kubens
+
+RUN cd /tmp && git clone https://github.com/Inlyne-Project/inlyne.git && cd inlyne && cargo build --release && cp target/release/inlyne /usr/local/bin/ && rm -rf /tmp/inlyne
