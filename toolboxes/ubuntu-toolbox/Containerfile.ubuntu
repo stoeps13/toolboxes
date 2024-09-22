@@ -28,7 +28,11 @@ RUN rm /etc/apt/apt.conf.d/docker-gzip-indexes /etc/apt/apt.conf.d/docker-no-lan
     rm /etc/apt/apt.conf.d/20apt-esm-hook.conf && \
     ln -s /usr/libexec/flatpak-xdg-utils/flatpak-spawn /usr/bin/ && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
-    ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \ 
+    ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/flatpak && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/podman && \
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree && \
     echo "ALL ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Install atuin
+RUN cd /tmp && curl -s https://api.github.com/repos/atuinsh/atuin/releases/latest | grep "browser_download_url" | grep "atuin-x86_64-unknown-linux-gnu.tar.gz" | cut -d : -f 2,3 | tr -d \" | grep -v 'sbom.json' | wget -q -i - -O atuin-x86_64-unknown-linux-gnu.tar.gz && mkdir atuin-extracted && tar xzf atuin-x86_64-unknown-linux-gnu.tar.gz -C atuin-extracted && mv atuin-extracted/atuin /usr/local/bin && rm -rf /tmp/atuin-extracted atuin-x86_64-unknown-linux-gnu.tar.gz || echo "Atuin not installed"
+

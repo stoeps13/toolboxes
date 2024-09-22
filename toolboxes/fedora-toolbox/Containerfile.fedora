@@ -24,6 +24,9 @@ RUN cd /tmp && curl -s https://api.github.com/repos/siderolabs/talos/releases/la
 # Install k9s
 RUN cd /tmp && curl -s https://api.github.com/repos/derailed/k9s/releases/latest | grep "browser_download_url" | grep "k9s_Linux_amd64.tar.gz" | cut -d : -f 2,3 | tr -d \" | grep -v 'sbom.json' | wget -q -i - -O k9s_Linux_amd64.tar.gz && mkdir k9s-extracted && tar xzf k9s_Linux_amd64.tar.gz -C k9s-extracted && mv k9s-extracted/k9s /usr/local/bin && rm -rf /tmp/k9s-extracted k9s_Linux_amd64.tar.gz || echo "K9s not installed"
 
+# Install atuin
+RUN cd /tmp && curl -s https://api.github.com/repos/atuinsh/atuin/releases/latest | grep "browser_download_url" | grep "atuin-x86_64-unknown-linux-gnu.tar.gz" | cut -d : -f 2,3 | tr -d \" | grep -v 'sbom.json' | wget -q -i - -O atuin-x86_64-unknown-linux-gnu.tar.gz && mkdir atuin-extracted && tar xzf atuin-x86_64-unknown-linux-gnu.tar.gz -C atuin-extracted && mv atuin-extracted/atuin /usr/local/bin && rm -rf /tmp/atuin-extracted atuin-x86_64-unknown-linux-gnu.tar.gz || echo "Atuin not installed!"
+
 # Install mkdocs
 RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17
 
@@ -45,3 +48,4 @@ RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr
     chmod +x /usr/bin/kubectx /usr/bin/kubens
 
 RUN cd /tmp && git clone https://github.com/Inlyne-Project/inlyne.git && cd inlyne && cargo build --release && cp target/release/inlyne /usr/local/bin/ && rm -rf /tmp/inlyne
+RUN go install github.com/charmbracelet/glow@latest

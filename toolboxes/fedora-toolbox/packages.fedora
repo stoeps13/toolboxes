@@ -15,6 +15,7 @@ gcc
 gcc-c++
 gh
 git
+golang
 hugo
 inotify-tools
 isync
