@@ -16,7 +16,7 @@ RUN rm /toolbox-packages
 RUN dnf copr enable atim/lazygit -y && dnf install -y lazygit
 
 # Install language server for neovim
-RUN npm install -g dockerfile-language-server-nodejs && npm install -g vscode-json-languageserver && npm i -g vscode-langservers-extracted && npm install -g yaml-language-server && npm install -g decktape
+RUN npm install -g dockerfile-language-server-nodejs && npm install -g vscode-json-languageserver && npm i -g vscode-langservers-extracted && npm install -g yaml-language-server && npm install -g decktape && npm install --global yarn
 
 # Install Talosctl
 RUN cd /tmp && curl -s https://api.github.com/repos/siderolabs/talos/releases/latest | grep "browser_download_url" | grep "talosctl-linux-amd64" | cut -d : -f 2,3 | tr -d \" | wget -q -i - -O talosctl && chmod +x talosctl && mv talosctl /usr/local/bin/
