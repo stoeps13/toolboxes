@@ -31,7 +31,7 @@ RUN cd /tmp && curl -s https://api.github.com/repos/atuinsh/atuin/releases/lates
 RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17 vimwiki-markdown maestral maestral\[gui\]
 
 # Install Asciidoctor
-RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciidoctor rouge vimwiki_markdown
+RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciidoctor rouge
 
 # Fix vdirsyncer
 RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
