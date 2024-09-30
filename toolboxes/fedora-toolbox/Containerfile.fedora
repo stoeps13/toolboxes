@@ -49,3 +49,4 @@ RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr
 
 # RUN cd /tmp && git clone https://github.com/Inlyne-Project/inlyne.git && cd inlyne && cargo build --release && cp target/release/inlyne /usr/local/bin/ && rm -rf /tmp/inlyne
 # RUN go install github.com/charmbracelet/glow@latest
+RUN cargo install stylua
