@@ -36,6 +36,7 @@ pass
 perl-Image-ExifTool
 pinentry-gnome3
 python3
+python3-ansible-lint
 python3-ipywidgets
 python3-widgetsnbextension
 ripgrep
@@ -45,6 +46,7 @@ rust-smithay-client-toolkit-devel
 rust-wayland-client+default-devel
 stow
 testssl
+the_silver_searcher
 tmux
 urlscan
 vdirsyncer
