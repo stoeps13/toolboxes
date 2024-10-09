@@ -28,10 +28,10 @@ RUN cd /tmp && curl -s https://api.github.com/repos/derailed/k9s/releases/latest
 RUN cd /tmp && curl -s https://api.github.com/repos/atuinsh/atuin/releases/latest | grep "browser_download_url" | grep "atuin-x86_64-unknown-linux-gnu.tar.gz" | cut -d : -f 2,3 | tr -d \" | grep -v 'sha256' | wget -q -i - -O atuin-x86_64-unknown-linux-gnu.tar.gz && mkdir atuin-extracted && tar xzf atuin-x86_64-unknown-linux-gnu.tar.gz -C atuin-extracted && mv atuin-extracted/atuin /usr/local/bin && rm -rf /tmp/atuin-extracted atuin-x86_64-unknown-linux-gnu.tar.gz || echo "Atuin not installed!"
 
 # Install mkdocs
-RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17 vimwiki-markdown
+RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17 vimwiki-markdown maestral maestral\[gui\]
 
 # Install Asciidoctor
-RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciidoctor rouge vimwiki_markdown
+RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciidoctor rouge
 
 # Fix vdirsyncer
 RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
@@ -47,5 +47,6 @@ RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr
     wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -O /usr/bin/kubens && \
     chmod +x /usr/bin/kubectx /usr/bin/kubens
 
-RUN cd /tmp && git clone https://github.com/Inlyne-Project/inlyne.git && cd inlyne && cargo build --release && cp target/release/inlyne /usr/local/bin/ && rm -rf /tmp/inlyne
-RUN go install github.com/charmbracelet/glow@latest
+# RUN cd /tmp && git clone https://github.com/Inlyne-Project/inlyne.git && cd inlyne && cargo build --release && cp target/release/inlyne /usr/local/bin/ && rm -rf /tmp/inlyne
+# RUN go install github.com/charmbracelet/glow@latest
+RUN cargo install stylua
