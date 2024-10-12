@@ -50,4 +50,4 @@ RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr
 RUN cargo install stylua
 
 # Install taskwarrior 3
-RUN cd /tmp && curl -s https://api.github.com/repos/GothenburgBitFactory/taskwarrior/releases/latest | grep "browser_download_url" | cut -d : -f 2,3 | tr -d \" | tr -d \, | wget -q -i - -O taskwarrior-latest.tar.gz && tar xzf taskwarrior-latest.tar.gz && cd task-* && cmake -DCMAKE_BUILD_TYPE=release . && make && make install && cd /tmp && rm -rf taskwarrior-latest.tar.gz task*
+RUN cd /usr/src && curl -s https://api.github.com/repos/GothenburgBitFactory/taskwarrior/releases/latest | grep "browser_download_url" | cut -d : -f 2,3 | tr -d \" | tr -d \, | wget -q -i - -O taskwarrior-latest.tar.gz && tar xzf taskwarrior-latest.tar.gz && cd task-* && cmake -DCMAKE_BUILD_TYPE=release . && make && make install && cd /usr/src && rm -rf taskwarrior-latest.tar.gz task*
