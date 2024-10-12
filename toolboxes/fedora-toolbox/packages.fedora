@@ -46,6 +46,7 @@ rubygem-sass
 rust-smithay-client-toolkit-devel
 rust-wayland-client+default-devel
 stow
+task2
 testssl
 the_silver_searcher
 tmux
