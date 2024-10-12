@@ -4,6 +4,7 @@ automake
 bat
 cargo
 chromium
+cmake
 curl
 difftastic
 eza
@@ -24,7 +25,9 @@ java-latest-openjdk
 jq
 khal
 khard
+libuuid-devel
 libwayland-client
+make
 make
 msmtp
 neomutt
@@ -46,7 +49,6 @@ rubygem-sass
 rust-smithay-client-toolkit-devel
 rust-wayland-client+default-devel
 stow
-task2
 testssl
 the_silver_searcher
 tmux

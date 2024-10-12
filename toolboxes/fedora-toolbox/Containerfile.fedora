@@ -47,6 +47,7 @@ RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr
     wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -O /usr/bin/kubens && \
     chmod +x /usr/bin/kubectx /usr/bin/kubens
 
-# RUN cd /tmp && git clone https://github.com/Inlyne-Project/inlyne.git && cd inlyne && cargo build --release && cp target/release/inlyne /usr/local/bin/ && rm -rf /tmp/inlyne
-# RUN go install github.com/charmbracelet/glow@latest
 RUN cargo install stylua
+
+# Install taskwarrior 3
+RUN cd /tmp && curl -s https://api.github.com/repos/GothenburgBitFactory/taskwarrior/releases/latest | grep "browser_download_url" | cut -d : -f 2,3 | tr -d \" | tr -d \, | wget -q -i - -O taskwarrior-latest.tar.gz && tar xzf taskwarrior-latest.tar.gz && cd task-* && cmake -DCMAKE_BUILD_TYPE=release . && make && make install && cd /tmp && rm -rf taskwarrior-latest.tar.gz task*
