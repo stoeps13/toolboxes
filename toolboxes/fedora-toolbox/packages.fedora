@@ -11,6 +11,7 @@ eza
 fastfetch
 fd-find
 feh
+ffmpeg
 flameshot
 fzf
 gcc
@@ -49,8 +50,8 @@ ruby-devel
 rubygem-sass
 rust-smithay-client-toolkit-devel
 rust-wayland-client+default-devel
-syncthing
 stow
+syncthing
 testssl
 the_silver_searcher
 tmux
