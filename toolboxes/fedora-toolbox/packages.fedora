@@ -18,6 +18,7 @@ gcc
 gcc-c++
 gh
 git
+gnome-keyring
 golang
 hugo
 inotify-tools
