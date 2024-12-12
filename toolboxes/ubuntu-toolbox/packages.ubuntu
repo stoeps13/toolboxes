@@ -24,6 +24,7 @@ gpgsm
 gpg-wks-client
 gpg-wks-server
 hostname
+isync
 iproute2
 iputils-ping
 keyutils
