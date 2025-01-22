@@ -42,6 +42,7 @@ pass
 perl-Image-ExifTool
 perl-Mail-Box
 perl-Term-ReadLine
+perl-Term-ReadLine-Gnu
 pinentry-gnome3
 python3
 python3-ansible-lint
