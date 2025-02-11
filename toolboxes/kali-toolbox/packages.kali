@@ -1,5 +1,7 @@
 arjun
 bat
+bind9-dnsutils
+crackmapexec
 curl
 dirbuster
 eyewitness
@@ -14,6 +16,7 @@ musl
 musl-dev
 netcat-openbsd
 nmap
+responder
 ripgrep
 rlwrap
 sqlmap
@@ -23,3 +26,4 @@ tmux
 unzip
 vim
 wget
+zsh

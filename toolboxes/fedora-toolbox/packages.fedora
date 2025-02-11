@@ -47,6 +47,7 @@ pinentry-gnome3
 python3
 python3-ansible-lint
 python3-ipywidgets
+python3-jmespath
 python3-tmuxp
 python3-widgetsnbextension
 ripgrep
