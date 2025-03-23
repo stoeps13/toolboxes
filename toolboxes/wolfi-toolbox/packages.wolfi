@@ -30,6 +30,7 @@ mount
 ncurses
 ncurses-terminfo
 net-tools
+npm
 openssh-client
 pigz
 posix-libc-utils
