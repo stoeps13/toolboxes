@@ -38,6 +38,7 @@ python3~3.11
 py3-pip
 procps
 rsync
+ruby
 shadow
 sudo
 tcpdump
