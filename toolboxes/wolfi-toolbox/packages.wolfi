@@ -4,6 +4,7 @@ bzip2
 coreutils
 curl
 diffutils
+fd
 findmnt
 findutils
 git
