@@ -34,6 +34,8 @@ npm
 openssh-client
 pigz
 posix-libc-utils
+python3~3.11
+py3-pip
 procps
 rsync
 shadow
