@@ -38,7 +38,7 @@ mtr
 neofetch
 nodejs
 npm
-openjdk-11-jre-headless
+openjdk-11-jre 
 openssh-client
 openssl
 passwd
