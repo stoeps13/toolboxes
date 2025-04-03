@@ -38,6 +38,7 @@ mtr
 neofetch
 nodejs
 npm
+openjdk-11-jre-headless
 openssh-client
 openssl
 passwd
@@ -51,6 +52,7 @@ software-properties-common
 sudo
 tcpdump
 time
+tmux
 traceroute
 tree
 tzdata
