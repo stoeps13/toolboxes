@@ -31,6 +31,10 @@ RUN rm /etc/apt/apt.conf.d/docker-gzip-indexes /etc/apt/apt.conf.d/docker-no-lan
     ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/rpm-ostree && \
     echo "ALL ALL = (ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+COPY ./toolboxes/ubuntu-toolbox/davmail_6.3.0-3627-1_all.deb /tmp
+RUN dpkg -i /tmp/davmail_6.3.0-3627-1_all.deb && \
+    rm /tmp/davmail_6.3.0-3627-1_all.deb
+
 # Install atuin
 # RUN cd /tmp && curl -s https://api.github.com/repos/atuinsh/atuin/releases/latest | grep "browser_download_url" | grep "atuin-x86_64-unknown-linux-gnu.tar.gz" | cut -d : -f 2,3 | tr -d \" | grep -v 'sha256' | wget -q -i - -O atuin-x86_64-unknown-linux-gnu.tar.gz && mkdir atuin-extracted && tar xzf atuin-x86_64-unknown-linux-gnu.tar.gz -C atuin-extracted && mv atuin-extracted/atuin /usr/local/bin && rm -rf /tmp/atuin-extracted atuin-x86_64-unknown-linux-gnu.tar.gz || echo "Atuin not installed"
 
