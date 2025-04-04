@@ -71,7 +71,7 @@ RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17 v
 RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciidoctor rouge
 
 # Fix vdirsyncer
-RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
+# RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
 
 # Add some container binaries
 COPY --from=cgr.dev/chainguard/helm:latest /usr/bin/helm /usr/bin/helm
