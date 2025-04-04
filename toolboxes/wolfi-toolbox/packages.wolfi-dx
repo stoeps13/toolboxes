@@ -5,6 +5,7 @@ binutils-gold
 bubblewrap
 build-base
 busybox
+cargo
 ca-certificates-bundle
 expat
 gcc

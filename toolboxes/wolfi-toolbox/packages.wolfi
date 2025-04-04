@@ -1,6 +1,7 @@
 bash
 bc
 bzip2
+cargo
 coreutils
 curl
 diffutils
