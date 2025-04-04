@@ -5,7 +5,6 @@ binutils-gold
 bubblewrap
 build-base
 busybox
-cargo
 ca-certificates-bundle
 expat
 gcc
@@ -31,5 +30,6 @@ mpc
 mpfr
 ncurses-terminfo-base
 pkgconf
+rust
 wolfi-baselayout
 zlib

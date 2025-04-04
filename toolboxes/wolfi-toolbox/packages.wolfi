@@ -1,7 +1,6 @@
 bash
 bc
 bzip2
-cargo
 coreutils
 curl
 diffutils
@@ -17,13 +16,13 @@ keyutils
 less
 libcap
 libcap-utils
+libice
 libsm
 libx11
 libxau
 libxcb
 libxdmcp
 libxext
-libice
 libxmu
 libxt
 linux-pam
@@ -36,11 +35,12 @@ npm
 openssh-client
 pigz
 posix-libc-utils
-python3~3.11
-py3-pip
 procps
+py3-pip
+python3~3.11
 rsync
 ruby
+rust
 shadow
 sudo
 tcpdump
@@ -50,8 +50,8 @@ umount
 unzip
 util-linux
 util-linux-misc
+vulkan-loader
 wget
 xauth
 xz
 zip
-vulkan-loader
