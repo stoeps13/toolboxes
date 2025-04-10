@@ -1,5 +1,6 @@
 ImageMagick
 ansifilter
+asciinema
 automake
 bat
 cargo
@@ -44,6 +45,7 @@ perl-Mail-Box
 perl-Term-ReadLine
 perl-Term-ReadLine-Gnu
 pinentry-gnome3
+pv
 python3
 python3-ansible-lint
 python3-ipywidgets
