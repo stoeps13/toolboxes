@@ -9,7 +9,7 @@ LABEL com.github.containers.toolbox="true" \
 
 COPY ./toolboxes/scipy-toolbox/packages.scipy /toolbox-packages
 
-RUN dnf -y upgrade && dnf -y install $(<toolbox-packages) && dnf clean all
+RUN apt -y update && apt -y upgrade && apt -y install $(<toolbox-packages) && apt clean all
 
 RUN rm /toolbox-packages
 
