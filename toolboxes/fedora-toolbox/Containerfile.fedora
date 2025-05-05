@@ -8,21 +8,13 @@ LABEL com.github.containers.toolbox="true" \
 
 COPY ./toolboxes/fedora-toolbox/packages.fedora /toolbox-packages
 
-RUN dnf -y upgrade && dnf -y install $(<toolbox-packages) && dnf clean all
+#RUN dnf -y upgrade && dnf -y install $(<toolbox-packages) && dnf clean all
+RUN dnf -y install $(<toolbox-packages) && dnf clean all
 
 RUN rm /toolbox-packages
 
-# Install lazygit
-RUN dnf copr enable atim/lazygit -y && dnf install -y lazygit
-
 # Install language server for neovim
 RUN npm install -g dockerfile-language-server-nodejs && npm install -g vscode-json-languageserver && npm i -g vscode-langservers-extracted && npm install -g yaml-language-server && npm install -g decktape && npm install --global yarn
-
-# Install Talosctl
-RUN cd /tmp && curl -s https://api.github.com/repos/siderolabs/talos/releases/latest | grep "browser_download_url" | grep "talosctl-linux-amd64" | cut -d : -f 2,3 | tr -d \" | wget -q -i - -O talosctl && chmod +x talosctl && mv talosctl /usr/local/bin/
-
-# Install k9s
-RUN cd /tmp && curl -s https://api.github.com/repos/derailed/k9s/releases/latest | grep "browser_download_url" | grep "k9s_Linux_amd64.tar.gz" | cut -d : -f 2,3 | tr -d \" | grep -v 'sbom.json' | wget -q -i - -O k9s_Linux_amd64.tar.gz && mkdir k9s-extracted && tar xzf k9s_Linux_amd64.tar.gz -C k9s-extracted && mv k9s-extracted/k9s /usr/local/bin && rm -rf /tmp/k9s-extracted k9s_Linux_amd64.tar.gz || echo "K9s not installed"
 
 # Install mkdocs
 RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17 vimwiki-markdown maestral maestral\[gui\] tasklib pynvim mkdocs-redirects
