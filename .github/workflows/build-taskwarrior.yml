@@ -1,7 +1,7 @@
 name: Build and Push Taskwarrior container
 on:
   schedule:
-    - cron: '20 22 * * 2,5'  # 10:20pm everyday
+    - cron: '20 22 * * 1'  # 10:20pm Sunday
   workflow_dispatch:
 env:
     IMAGE_NAME: taskwarrior
