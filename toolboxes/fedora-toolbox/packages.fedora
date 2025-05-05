@@ -3,7 +3,6 @@ ansifilter
 asciinema
 automake
 bat
-cargo
 chromium
 cmake
 curl
@@ -51,8 +50,6 @@ python3-tmuxp
 ripgrep
 ruby-devel
 rubygem-sass
-rust-smithay-client-toolkit-devel
-rust-wayland-client+default-devel
 stow
 syncthing
 testssl
