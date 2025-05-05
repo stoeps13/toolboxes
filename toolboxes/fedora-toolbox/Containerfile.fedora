@@ -26,20 +26,8 @@ RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciido
 RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
 
 # Add some container binaries
-COPY --from=cgr.dev/chainguard/helm:latest /usr/bin/helm /usr/bin/helm
 COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
-COPY --from=cgr.dev/chainguard/dive:latest /usr/bin/dive /usr/bin/dive
-COPY --from=docker.io/aquasec/trivy:latest /usr/local/bin/trivy /usr/bin/trivy
-
-# Install kns/kctx and add completions for Bash
-RUN wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubectx -O /usr/bin/kubectx && \
-    wget https://raw.githubusercontent.com/ahmetb/kubectx/master/kubens -O /usr/bin/kubens && \
-    chmod +x /usr/bin/kubectx /usr/bin/kubens
+COPY --from=ghcr.io/stoeps13/taskwarrior:latest /usr/local/bin/task /usr/bin/task
 
 RUN cargo install stylua
 
-# Install taskwarrior 3
-RUN cd /usr/src && ls -al && whoami && curl -s https://api.github.com/repos/GothenburgBitFactory/taskwarrior/releases/latest | grep "browser_download_url" | cut -d : -f 2,3 | tr -d \" | tr -d \, | wget -q -i - -O taskwarrior-latest.tar.gz && tar xzf taskwarrior-latest.tar.gz && cd task-* && cmake -DCMAKE_BUILD_TYPE=release . && make && make install && cd /usr/src && rm -rf taskwarrior-latest.tar.gz task*
-
-# Install adb udev rules
-# RUN mkdir /etc/udev/rules.d/ -p ; cd /etc/udev/rules.d ; curl -O https://raw.githubusercontent.com/M0Rf30/android-udev-rules/refs/heads/main/51-android.rules && chmod a+r /etc/udev/rules.d/51-android.rules
