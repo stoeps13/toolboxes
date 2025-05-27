@@ -25,7 +25,9 @@ RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciido
 # Fix vdirsyncer
 RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
 
-RUN dnf copr enable -y cimbali/pympress && dnf install -y python3-pympress
+# Install polylux2pdfpc
+RUN cargo install --git https://github.com/andreasKroepelin/polylux/ --branch release
+
 # Add some container binaries
 COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
 # COPY --from=ghcr.io/stoeps13/taskwarrior:latest /usr/local/bin/task /usr/bin/task
