@@ -30,4 +30,4 @@ RUN cargo install --git https://github.com/andreasKroepelin/polylux/ --branch re
 
 # Add some container binaries
 COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
-# COPY --from=ghcr.io/stoeps13/taskwarrior:latest /usr/local/bin/task /usr/bin/task
+COPY --from=ghcr.io/stoeps13/taskwarrior:latest /usr/local/bin/task /usr/bin/task
