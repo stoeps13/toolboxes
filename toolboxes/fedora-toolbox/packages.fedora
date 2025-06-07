@@ -63,5 +63,7 @@ vim
 w3m
 wget
 xclip
+zathura
+zathura-pdf-mupdf
 zoxide
 zsh
