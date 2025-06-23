@@ -47,6 +47,7 @@ python3
 python3-ansible-lint
 python3-jmespath
 python3-pip
+python3-tkinter
 python3-tmuxp
 ripgrep
 ruby-devel
