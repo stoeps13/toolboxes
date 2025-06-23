@@ -25,6 +25,7 @@ java-latest-openjdk
 jq
 khal
 khard
+libayatana-appindicator-gtk3
 libuuid-devel
 libwayland-client
 make
