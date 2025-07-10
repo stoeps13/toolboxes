@@ -1,3 +1,4 @@
+apache2-utils
 arjun
 bat
 bind9-dnsutils
@@ -9,13 +10,16 @@ fd-find
 ffuf
 fzf
 git
+golang
 hashcat
+hping3
 hydra
 john
 musl
 musl-dev
 netcat-openbsd
 nmap
+patator
 responder
 ripgrep
 rlwrap

@@ -17,7 +17,7 @@ RUN rm /toolbox-packages
 RUN npm install -g dockerfile-language-server-nodejs && npm install -g vscode-json-languageserver && npm i -g vscode-langservers-extracted && npm install -g yaml-language-server && npm install -g decktape && npm install --global yarn
 
 # Install mkdocs
-RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17 vimwiki-markdown maestral maestral\[gui\] tasklib pynvim mkdocs-redirects
+RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17 vimwiki-markdown maestral maestral\[gui\] tasklib pynvim mkdocs-redirects ansible-dev-tools
 
 # Install Asciidoctor
 RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciidoctor rouge

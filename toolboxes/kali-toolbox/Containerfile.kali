@@ -49,6 +49,8 @@ RUN curl -s https://api.github.com/repos/hoppscotch/releases/releases/latest \
 # Install atuin
 RUN cd /tmp && curl -s https://api.github.com/repos/atuinsh/atuin/releases/latest | grep "browser_download_url" | grep "atuin-x86_64-unknown-linux-gnu.tar.gz" | cut -d : -f 2,3 | tr -d \" | grep -v 'sha256' | wget -q -i - -O atuin-x86_64-unknown-linux-gnu.tar.gz && mkdir atuin-extracted && tar xzf atuin-x86_64-unknown-linux-gnu.tar.gz -C atuin-extracted && mv atuin-extracted/atuin /usr/local/bin && rm -rf /tmp/atuin-extracted atuin-x86_64-unknown-linux-gnu.tar.gz || echo "Atuin not installed"
 
+RUN go install github.com/mingrammer/flog
+
 # Get burpsuite.desktop
 COPY ./toolboxes/kali-toolbox/burpsuite.desktop /usr/share/applications/
 COPY ./toolboxes/kali-toolbox/zaproxy.desktop /usr/share/applications/
