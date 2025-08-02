@@ -2,15 +2,15 @@ FROM docker.io/kalilinux/kali-rolling:latest
 # From https://github.com/ublue-os/fedora-distrobox
 
 LABEL com.github.containers.toolbox="true" \
-  usage="This image is meant to be used with the toolbox or distrobox command" \
-  summary="A cloud-native terminal experience powered by Fedora"
+        usage="This image is meant to be used with the toolbox or distrobox command" \
+        summary="A cloud-native terminal experience powered by Fedora"
 
 COPY ./toolboxes/kali-toolbox/packages.kali /toolbox-packages
 
 RUN apt-get update && \
-  apt-get upgrade -y && \
-  DEBIAN_FRONTEND=noninteractive apt-get -y install $(cat toolbox-packages | grep -v '^#'| xargs) && \
-  rm -rd /var/lib/apt/lists/*
+        apt-get upgrade -y && \
+        DEBIAN_FRONTEND=noninteractive apt-get -y install $(cat toolbox-packages | grep -v '^#'| xargs) && \
+        rm -rd /var/lib/apt/lists/*
 
 RUN rm /toolbox-packages
 
@@ -23,33 +23,33 @@ RUN rm /toolbox-packages
 
 # Install kiterunner
 RUN curl -s https://api.github.com/repos/assetnote/kiterunner/releases/latest \
-  | grep -e "kiterunner_.*_linux_amd64.tar.gz" | grep "browser_download_url" \
-  | cut -d : -f 2,3 \
-  | tr -d \" | xargs -n 1 curl -s -L -o /tmp/kiterunner_linux_amd64.tar.gz && \
-  tar -C /usr/local/bin -xvzf /tmp/kiterunner_linux_amd64.tar.gz kr && \
-  rm /tmp/kiterunner_linux_amd64.tar.gz
+        | grep -e "kiterunner_.*_linux_amd64.tar.gz" | grep "browser_download_url" \
+        | cut -d : -f 2,3 \
+        | tr -d \" | xargs -n 1 curl -s -L -o /tmp/kiterunner_linux_amd64.tar.gz && \
+        tar -C /usr/local/bin -xvzf /tmp/kiterunner_linux_amd64.tar.gz kr && \
+        rm /tmp/kiterunner_linux_amd64.tar.gz
 
 # Install nuclei
 RUN curl -s https://api.github.com/repos/projectdiscovery/nuclei/releases/latest \
-  | grep -e "nuclei_.*_linux_amd64.zip" | grep "browser_download_url" \
-  | cut -d : -f 2,3 \
-  | tr -d \" | xargs -n 1 curl -s -L -o /tmp/nuclei_linux_amd64.zip  && \
-  unzip -d /tmp /tmp/nuclei_linux_amd64.zip nuclei && \
-  mv /tmp/nuclei /usr/local/bin/ && \
-  rm /tmp/nuclei*.zip
+        | grep -e "nuclei_.*_linux_amd64.zip" | grep "browser_download_url" \
+        | cut -d : -f 2,3 \
+        | tr -d \" | xargs -n 1 curl -s -L -o /tmp/nuclei_linux_amd64.zip  && \
+        unzip -d /tmp /tmp/nuclei_linux_amd64.zip nuclei && \
+        mv /tmp/nuclei /usr/local/bin/ && \
+        rm /tmp/nuclei*.zip
 
 # Install Hoppscotch
 RUN curl -s https://api.github.com/repos/hoppscotch/releases/releases/latest \
-  | grep -e "Hoppscotch_linux_x64.deb" | grep "browser_download_url" \
-  | cut -d : -f 2,3 \
-  | tr -d \" | xargs -n 1 curl -s -L -o /tmp/Hoppscotch_linux_x64.deb && \
-  dpkg -i --ignore-depends=libwebkit2gtk-4.1-0 /tmp/Hoppscotch_linux_x64.deb && \
-  rm /tmp/Hoppscotch_linux_x64.deb
+        | grep -e "Hoppscotch_linux_x64.deb" | grep "browser_download_url" \
+        | cut -d : -f 2,3 \
+        | tr -d \" | xargs -n 1 curl -s -L -o /tmp/Hoppscotch_linux_x64.deb && \
+        dpkg -i --ignore-depends=libwebkit2gtk-4.1-0 /tmp/Hoppscotch_linux_x64.deb && \
+        rm /tmp/Hoppscotch_linux_x64.deb
 
 # Install atuin
 RUN cd /tmp && curl -s https://api.github.com/repos/atuinsh/atuin/releases/latest | grep "browser_download_url" | grep "atuin-x86_64-unknown-linux-gnu.tar.gz" | cut -d : -f 2,3 | tr -d \" | grep -v 'sha256' | wget -q -i - -O atuin-x86_64-unknown-linux-gnu.tar.gz && mkdir atuin-extracted && tar xzf atuin-x86_64-unknown-linux-gnu.tar.gz -C atuin-extracted && mv atuin-extracted/atuin /usr/local/bin && rm -rf /tmp/atuin-extracted atuin-x86_64-unknown-linux-gnu.tar.gz || echo "Atuin not installed"
 
-RUN go install github.com/mingrammer/flog
+RUN go install github.com/mingrammer/flog@latest
 
 # Get burpsuite.desktop
 COPY ./toolboxes/kali-toolbox/burpsuite.desktop /usr/share/applications/
