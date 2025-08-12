@@ -5,7 +5,7 @@ LABEL com.github.containers.toolbox="true" \
     name="ubuntu-toolbox" \
     usage="This image is meant to be used with the toolbox or distrobox command" \
     summary="A cloud-native terminal experience powered by Ubuntu" \
-    maintainer="jorge.castro@gmail.com"
+    maintainer="christoph.stoettner@stoeps.de"
 
 COPY ./toolboxes/ubuntu-toolbox/packages.ubuntu /toolbox-packages
 

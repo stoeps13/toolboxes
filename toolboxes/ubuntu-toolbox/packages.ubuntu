@@ -22,6 +22,7 @@ gpg-wks-client
 gpg-wks-server
 gpgconf
 gpgsm
+golang
 hostname
 iproute2
 iputils-ping
