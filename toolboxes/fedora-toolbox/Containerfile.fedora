@@ -26,7 +26,7 @@ RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciido
 RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
 
 # Install polylux2pdfpc
-RUN cargo install --git https://github.com/andreasKroepelin/polylux/ --branch release
+RUN cargo install --git https://github.com/andreasKroepelin/polylux/ --branch release && cp /root/.cargo/bin/polylux2pdfpc /usr/local/bin/
 
 # Add some container binaries
 COPY --from=cgr.dev/chainguard/kubectl:latest /usr/bin/kubectl /usr/bin/kubectl
