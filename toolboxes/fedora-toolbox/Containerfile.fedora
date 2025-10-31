@@ -1,5 +1,5 @@
 # FROM ghcr.io/ublue-os/fedora-distrobox:latest
-FROM quay.io/fedora/fedora-toolbox:42
+FROM quay.io/fedora/fedora-toolbox:43
 # From https://github.com/ublue-os/fedora-distrobox
 
 LABEL com.github.containers.toolbox="true" \
