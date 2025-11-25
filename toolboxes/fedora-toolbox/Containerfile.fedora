@@ -33,10 +33,7 @@ RUN cargo install --git https://github.com/andreasKroepelin/polylux/ --branch re
 # COPY --from=ghcr.io/stoeps13/taskwarrior:latest /usr/local/bin/task /usr/bin/task
 
 # Download the binary for your system
-sudo curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+RUN curl -L --output /usr/local/bin/gitlab-runner https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
 
 # Give it permission to execute
-sudo chmod +x /usr/local/bin/gitlab-runner
-sudo useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash
-sudo gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
-sudo gitlab-runner start
+RUN chmod +x /usr/local/bin/gitlab-runner && useradd --comment 'GitLab Runner' --create-home gitlab-runner --shell /bin/bash && gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner && gitlab-runner start
