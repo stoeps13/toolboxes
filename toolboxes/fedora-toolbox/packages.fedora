@@ -7,6 +7,7 @@ bat
 cargo
 chromium
 cmake
+code
 curl
 difftastic
 fastfetch
