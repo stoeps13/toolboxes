@@ -9,7 +9,7 @@ LABEL com.github.containers.toolbox="true" \
 COPY ./toolboxes/fedora-toolbox/packages.fedora /toolbox-packages
 
 # Install VSCode Repo
-RUN sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc && echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
+# RUN sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc && echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\nautorefresh=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | sudo tee /etc/yum.repos.d/vscode.repo > /dev/null
 
 #RUN dnf -y upgrade && dnf -y install $(<toolbox-packages) && dnf clean all
 RUN dnf -y install $(<toolbox-packages) && dnf clean all
