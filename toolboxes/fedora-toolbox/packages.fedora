@@ -30,10 +30,8 @@ libayatana-appindicator-gtk3
 libuuid-devel
 libwayland-client
 make
-make
 msmtp
 neomutt
-neovim
 nodejs-bash-language-server
 notmuch
 npm
@@ -49,12 +47,10 @@ python3
 python3-ansible-lint
 python3-jmespath
 python3-pip
-python3-tkinter
 python3-tmuxp
 ripgrep
 ruby-devel
 rubygem-sass
-stow
 syncthing
 testssl
 the_silver_searcher
@@ -64,7 +60,6 @@ vdirsyncer
 vim
 w3m
 wget
-xclip
 zathura
 zathura-pdf-mupdf
 zoxide
