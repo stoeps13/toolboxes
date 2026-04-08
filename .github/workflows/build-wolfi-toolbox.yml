@@ -118,3 +118,4 @@ jobs:
           BUILD_IMAGE_OUTPUTS: ${{ toJSON(steps.build_image.outputs) }}
         run: |
           echo "$BUILD_IMAGE_OUTPUTS"
+
