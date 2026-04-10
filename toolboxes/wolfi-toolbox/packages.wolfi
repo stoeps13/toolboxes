@@ -15,13 +15,13 @@ keyutils
 less
 libcap
 libcap-utils
+libice
 libsm
 libx11
 libxau
 libxcb
 libxdmcp
 libxext
-libice
 libxmu
 libxt
 linux-pam
@@ -45,9 +45,8 @@ umount
 unzip
 util-linux
 util-linux-misc
+vulkan-loader
 wget
 xauth
 xz
 zip
-zsh
-vulkan-loader
