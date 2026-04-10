@@ -13,18 +13,3 @@ RUN dnf -y install $(<toolbox-packages) && dnf clean all
 
 RUN rm /toolbox-packages
 
-# Install language server for neovim
-RUN npm install -g dockerfile-language-server-nodejs && npm install -g vscode-json-languageserver && npm i -g vscode-langservers-extracted && npm install -g yaml-language-server && npm install -g decktape && npm install --global yarn
-
-# Install mkdocs
-RUN pip install mkdocs mkdocs-material mkdocs-section-index ansible-core\<2.17 vimwiki-markdown maestral maestral\[gui\] tasklib pynvim mkdocs-redirects ansible-dev-tools
-
-# Install Asciidoctor
-RUN gem install asciidoctor-diagram asciidoctor-pdf asciidoctor-revealjs asciidoctor rouge
-
-# Fix vdirsyncer
-RUN sed -i 's!urn:ietf:wg:oauth:2.0:oob!http://127.0.0.1:8088!g' $(fd google.py /usr/lib | grep vdirsyncer)
-
-# Install polylux2pdfpc
-RUN cargo install --git https://github.com/andreasKroepelin/polylux/ --branch release --target-dir /usr/local/bin/
-
