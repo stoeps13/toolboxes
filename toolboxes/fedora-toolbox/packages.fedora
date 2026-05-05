@@ -1,11 +1,9 @@
 ImageMagick
 ack
 ansifilter
-asciinema
 automake
 bat
 cargo
-chromium
 cmake
 ffmpeg
 fzf
@@ -15,7 +13,6 @@ gh
 gnome-keyring
 golang
 inotify-tools
-isync
 java-latest-openjdk
 jq
 libayatana-appindicator-gtk3
